@@ -1,0 +1,21 @@
+{
+	"files.exclude": {
+		"**/__pycache__": true,
+		"**/*.pyc": true,
+		"**/*.pyo": true,
+		"**/*.pyd": true,
+        "**/.venv": true,
+        "**/.pytest_cache": true
+	},
+	"search.exclude": {
+		"**/__pycache__": true,
+		"**/*.pyc": true
+	},
+	"files.watcherExclude": {
+		"**/__pycache__": true,
+	},
+	"[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true
+  }
+}
