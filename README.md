@@ -4,7 +4,15 @@
 
 ## 目录
 
+以下是本库的相关目录，请读者自行根据需求查阅：
+
+- **[使用说明](#使用说明)**
+- **[核心算法](#核心算法)**
+- **[参考代码](#参考代码)**
+
 ## 使用说明
+
+如果您需要参考这个库学习笔者当时的学习思路，请按照如下方式部署：
 
 1. 克隆仓库：
 
@@ -30,10 +38,16 @@ uv sync
 
 ## 核心算法
 
-按照主题分类，以下学习链接均来自于 Geeks for Geeks：
+算法均按照主题分类，基本采用 Python 的 `pandas`, `numpy` 与 `scikit-learn` 三个库分别进行数据统计分析与预处理与相应 ML 模型的训练，请读者自行根据需求跳转到如下章节阅读：
 
 ### 分类算法
 
-- 随机森林 Random Forest：[rf](https://www.geeksforgeeks.org/machine-learning/random-forest-algorithm-in-machine-learning/)
-- 梯度上升树 Gradient Boosting Tree: [gbt](https://www.geeksforgeeks.org/machine-learning/ml-gradient-boosting/)
-- XGBoost: [xgb](https://www.geeksforgeeks.org/machine-learning/xgboost/)
+请阅读该文档：[classification.md](docs\classification.md)
+
+### 聚类算法
+
+请阅读该文档：[regression.md](docs\regression.md)
+
+## 参考代码
+
+TODO: 正在施工
