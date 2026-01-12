@@ -3,7 +3,7 @@ from pathlib import Path
 import pandas as pd
 import numpy as np
 
-from config.configs import data_dir
+from configs.config import data_dir
 
 
 def main() -> None:
