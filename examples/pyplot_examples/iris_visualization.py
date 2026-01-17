@@ -14,6 +14,7 @@ from sklearn.metrics import (
 import pandas as pd
 import numpy as np
 from matplotlib import pyplot as plt
+import seaborn as sns
 
 from configs.encode import set_encoding_method, FIG_DIR
 
@@ -83,39 +84,42 @@ def main():
 
         cm = confusion_matrix(y_test, y_pred)
 
-        # 此处开始绘图
+        # 此处开始绘图 — 使用 seaborn 绘制特征相关性热力图（替代原混淆矩阵可视化）
+        corr = features.corr()
+
         fig, ax = plt.subplots(figsize=(8, 6))
-        im = ax.imshow(cm, cmap="Blues", interpolation="nearest")
+        sns.heatmap(
+            corr,
+            annot=True,
+            fmt=".2f",
+            cmap="coolwarm",
+            center=0,
+            vmin=-1,
+            vmax=1,
+            square=True,
+            linewidths=0.5,
+            linecolor="black",
+            cbar_kws={"label": "相关系数"},
+            ax=ax,
+        )
 
-        cbar = ax.figure.colorbar(im, ax=ax)
-        cbar.set_label("计数结果", rotation=45, labelpad=15)
+        ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha="right")
+        ax.set_title("Iris 特征相关性热力图")
 
-        ax.set_xticks(np.arange(len(le.classes_)))
-        ax.set_yticks(np.arange(len(le.classes_)))
-        ax.set_xticklabels(le.classes_)
-        ax.set_yticklabels(le.classes_)
-        ax.set_xlabel("花朵预测类别")
-        ax.set_ylabel("花朵真实类别")
-        ax.set_title("Iris 数据集分类混淆矩阵热力图")
-
-        for i in range(cm.shape[0]):
-            for j in range(cm.shape[1]):
-                ax.text(j, i, cm[i, j], ha="center", va="center", color="black")
-
-        txt = f"""准确率 ACU: {acc:.4%}\n召回率 REC: {rec:.4%}\n精确率 PCS: {pcs:.4%}"""
-
+        # 在图上保留模型评价摘要（可选）
+        txt = f"准确率 ACU: {acc:.4%}\n召回率 REC: {rec:.4%}\n精确率 PCS: {pcs:.4%}"
         ax.annotate(
             text=txt,
-            xy=(0.5, -0.15),
+            xy=(0.98, 0.98),
             xycoords="axes fraction",
-            ha="center",
-            va="center",
+            ha="right",
+            va="top",
+            bbox=dict(boxstyle="round,pad=0.5", fc="#5916F5", alpha=0.5),
             fontsize=12,
         )
 
         plt.tight_layout()
-        file_path = FIG_DIR / f"iris_classification_heatmap.png"
-        plt.savefig(file_path, dpi=200)
+        plt.show()
 
         # warning: 新代码段结束
 
