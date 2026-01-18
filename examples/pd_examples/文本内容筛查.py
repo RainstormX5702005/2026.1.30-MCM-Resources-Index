@@ -15,7 +15,6 @@ def cleartest(df, keywords):
     return df[aa], len(matching_indices)
 keywords = [
     'pacifiers', 'baby', 'dummy',
-
     # 包含"奶嘴"的喂养用品
     "pacifier", "nipple", "baby bottle", "formula", "milk powder", "baby food",
     "bib", "sippy cup", "breast pump", "feeding bottle", "teething biscuits", "baby cereal",
