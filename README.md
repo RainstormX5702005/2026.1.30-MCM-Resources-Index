@@ -39,7 +39,7 @@ uv run .\path\to\your\file.py
 
 注意：
 
-- 请确保同时提交 `pyproject.toml` 与 `uv.lock` 以保持同步
+- 请确保同时提交 `pyproject.toml` 与 `uv.lock` 
 - 请不要把 `.venv` 等本机环境相关的文件上传到本库，否则本库会拒绝您的提交
 
 本人在此介绍各个文件夹的功能，您在提交代码的时候务必把代码装入相应的文件夹中，否则此次提交会被拒绝：
