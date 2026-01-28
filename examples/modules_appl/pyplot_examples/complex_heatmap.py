@@ -47,7 +47,6 @@ def draw_heatmap(df: pd.DataFrame, fig_path: Optional[str] = None):
         # 1. 获取注释数据
         col_meta, row_meta = get_fake_metadata(df)
 
-        # 2. 定义顶部注释 (Top Annotation)
         # 包含：Group (色块) + Importance (条形图)
         col_ha = pch.HeatmapAnnotation(
             Group=pch.anno_simple(
@@ -64,7 +63,6 @@ def draw_heatmap(df: pd.DataFrame, fig_path: Optional[str] = None):
             verbose=0,  # 不啰嗦
         )
 
-        # 3. 定义右侧注释 (Right Annotation)
         # 包含：Cluster (色块) + Age (文本/简单色块)
         row_ha = pch.HeatmapAnnotation(
             Cluster=pch.anno_simple(row_meta["Cluster"], cmap="tab10", legend=True),
