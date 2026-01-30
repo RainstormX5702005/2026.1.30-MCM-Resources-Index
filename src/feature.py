@@ -7,7 +7,7 @@ from typing import Tuple
 from configs.config import DATA_DIR, OUTPUT_DIR
 
 
-def set_final(df: pd.DataFrame) -> pd.DataFrame:
+def set_feature_finals(df: pd.DataFrame) -> pd.DataFrame:
     """
     标记决赛选手并计算每个赛季持续的周数
 
@@ -22,12 +22,10 @@ def set_final(df: pd.DataFrame) -> pd.DataFrame:
     df["season_total_weeks"] = 0  # 该赛季总共持续的周数
     df["weeks_participated"] = 0  # 该选手参与的周数
 
-    # 获取所有week_judge_score列
     week_cols = [
         col for col in df.columns if col.startswith("week") and col.endswith("_score")
     ]
 
-    # 提取周数信息（从列名中获取）
     max_week = 0
     for col in week_cols:
         match = re.search(r"week(\d+)", col)
@@ -102,7 +100,7 @@ def set_feature_low_score(df: pd.DataFrame) -> pd.DataFrame:
     处理逻辑：
     1. 遍历每个赛季的每一周
     2. 计算该周所有参赛选手的平均分
-    3. 使用箱型图方法计算Q1（下四分位数）
+    3. 使用箱线图方法计算Q1（下四分位数）
     4. 如果选手分数低于Q1但下一周仍有分数（说明晋级了），记录该周次
     5. 新增字段：
        - low_score_advanced_weeks: 所有低分晋级的周次列表（字符串形式，如"1,3,5"）
@@ -111,9 +109,11 @@ def set_feature_low_score(df: pd.DataFrame) -> pd.DataFrame:
     """
 
     df["low_score_advanced_week"] = 0
+    df["low_score_advanced_week"] = df["low_score_advanced_week"].astype("Int64")
     df["low_score_advanced_weeks"] = ""
     df["low_score_advanced_weeks"] = df["low_score_advanced_weeks"].astype("str")
     df["low_score_advanced_count"] = 0
+    df["low_score_advanced_count"] = df["low_score_advanced_week"].astype("Int64")
 
     week_cols = [
         col for col in df.columns if col.startswith("week") and col.endswith("_score")
@@ -127,7 +127,7 @@ def set_feature_low_score(df: pd.DataFrame) -> pd.DataFrame:
             if week_num > max_week:
                 max_week = week_num
 
-    # 按赛季处理
+    # 根据每个赛季的每个周处理相关的代码
     for season in df["season"].unique():
         season_data = df[df["season"] == season]
         total_weeks = season_data["season_total_weeks"].iloc[0]
@@ -136,7 +136,6 @@ def set_feature_low_score(df: pd.DataFrame) -> pd.DataFrame:
             continue
 
         for week_num in range(1, total_weeks):
-            # 获取该周的所有评委分数列
             week_score_cols = [
                 col for col in week_cols if col.startswith(f"week{week_num}_")
             ]
@@ -171,6 +170,7 @@ def set_feature_low_score(df: pd.DataFrame) -> pd.DataFrame:
 
                         # 追加到所有低分晋级周次列表
                         current_weeks = df.at[idx, "low_score_advanced_weeks"]
+                        current_weeks = str(current_weeks)
                         if current_weeks == "":
                             df.at[idx, "low_score_advanced_weeks"] = str(week_num)
                         else:
@@ -178,7 +178,6 @@ def set_feature_low_score(df: pd.DataFrame) -> pd.DataFrame:
                                 current_weeks + "," + str(week_num)
                             )
 
-                        # 增加计数
                         df.at[idx, "low_score_advanced_count"] += 1
 
     return df
@@ -202,6 +201,7 @@ def handle_data(file_name: str) -> pd.DataFrame:
         for col in obj_cols:
             df[col] = df[col].astype("string")
 
+        # highlight: 对选手身份的特征分析
         df["is_from_usa"] = 0
         for col in df.index:
             country = df.at[col, "celebrity_homecountry/region"]
@@ -215,40 +215,118 @@ def handle_data(file_name: str) -> pd.DataFrame:
         raise
 
 
+def data_sparse(df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    season_3_to_27 = df[df["season"].between(3, 27)]
+    remaining = df[~df["season"].between(3, 27)]
+    return season_3_to_27, remaining
+
+
+def set_feature_score_sum(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    计算每一周所有评委给选手的投票总和
+
+    为每一周添加新列：week{N}_score_sum
+    """
+    week_cols = [
+        col for col in df.columns if col.startswith("week") and col.endswith("_score")
+    ]
+
+    week_nums = set()
+    for col in week_cols:
+        match = re.search(r"week(\d+)", col)
+        if match:
+            week_nums.add(int(match.group(1)))
+
+    for week_num in sorted(week_nums):
+        week_score_cols = [
+            col for col in week_cols if col.startswith(f"week{week_num}_")
+        ]
+        df[f"week{week_num}_score_sum"] = df[week_score_cols].sum(axis=1)
+
+    return df
+
+
+def set_feature_rank(df: pd.DataFrame, *, method="rank") -> pd.DataFrame:
+    """
+    根据指定方法计算排名特征，采用工厂模式实现排名的设计。
+
+    method="rank": 基于每周总票数的排名，添加 week{N}_judge_score_rank
+    method="percentage": 基于每周票数占比的排名，添加 week{N}_percentage 和 week{N}_percentage_rank
+    """
+    week_cols = [
+        col
+        for col in df.columns
+        if col.startswith("week") and col.endswith("_score_sum")
+    ]
+
+    if method == "rank":
+        # 为每一周添加排名，基于 week{N}_score_sum 降序排名
+        for col in week_cols:
+            week_num = col.replace("week", "").replace("_score_sum", "")
+            rank_col = f"week{week_num}_judge_score_rank"
+            df[rank_col] = 0
+            mask = df[col] > 0
+            if mask.any():
+                df.loc[mask, rank_col] = (
+                    df[mask]
+                    .groupby("season")[col]
+                    .rank(method="dense", ascending=False)
+                    .astype(int)
+                )
+    elif method == "percentage":
+        # 计算每周总票数
+        for season in df["season"].unique():
+            season_mask = df["season"] == season
+            season_data = df[season_mask]
+            for col in week_cols:
+                week_num = col.replace("week", "").replace("_score_sum", "")
+                total_votes = season_data[col].sum()
+                percentage_col = f"week{week_num}_percentage"
+                rank_col = f"week{week_num}_percentage_rank"
+                if total_votes > 0:
+                    df.loc[season_mask, percentage_col] = (
+                        df.loc[season_mask, col] / total_votes
+                    )
+                    mask = (df["season"] == season) & (df[col] > 0)
+                    df.loc[mask, rank_col] = (
+                        df.loc[mask, percentage_col]
+                        .rank(method="dense", ascending=False)
+                        .astype(int)
+                    )
+                    df.loc[~mask & season_mask, rank_col] = 0
+                else:
+                    df.loc[season_mask, percentage_col] = 0.0
+                    df.loc[season_mask, rank_col] = 0
+
+    return df
+
+
 def main():
     df = handle_data("2026_MCM_Problem_C_Data.csv")
-    df = set_final(df)
+    df = set_feature_finals(df)
     df = set_feature_low_score(df)
+    df = set_feature_score_sum(df)
+
+    # 应用 rank 方法
+    df_rank = df.copy()
+    df_rank = set_feature_rank(df_rank, method="rank")
+
+    # 应用 percentage 方法
+    df_percentage = df.copy()
+    df_percentage = set_feature_rank(df_percentage, method="percentage")
+
+    rank_df, percentage_df = data_sparse(df)
 
     output_path = OUTPUT_DIR / "processed_data.csv"
-
-    print("\n=== Statistics ===")
-    print(f"Total contestants: {len(df)}")
-    print(f"Reached final: {df['is_final_reached'].sum()}")
-
-    low_score_advanced = df[df["low_score_advanced_count"] > 0]
-    print(f"Low score but advanced (at least once): {len(low_score_advanced)}")
-
-    print("\n=== Low Score Advanced Count Distribution ===")
-    count_dist = (
-        df[df["low_score_advanced_count"] > 0]["low_score_advanced_count"]
-        .value_counts()
-        .sort_index()
-    )
-    for count, num in count_dist.items():
-        print(f"  {count} time(s): {num} contestants")
-
-    print("\n=== Last Low Score Advanced Week ===")
-    week_counts = (
-        df[df["low_score_advanced_week"] > 0]["low_score_advanced_week"]
-        .value_counts()
-        .sort_index()
-    )
-    for week, count in week_counts.items():
-        print(f"  Week {week}: {count} contestants")
+    output_path_rank = OUTPUT_DIR / "processed_data_rank.csv"
+    output_path_percentage = OUTPUT_DIR / "processed_data_percentage.csv"
 
     df.to_csv(output_path, index=False)
+    df_rank.to_csv(output_path_rank, index=False)
+    df_percentage.to_csv(output_path_percentage, index=False)
     print(f"\nSaved to: {output_path}")
+    print(f"Rank version saved to: {output_path_rank}")
+    print(f"Percentage version saved to: {output_path_percentage}")
 
 
 if __name__ == "__main__":
