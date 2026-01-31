@@ -21,11 +21,20 @@ def preprocessing(file_name: str) -> pd.DataFrame:
         "celebrity_age_during_season",
         "advanced_rounds",
     ]
+    processed_df[standard_cols] = scaler.fit_transform(processed_df[standard_cols])
 
     week_sum_cols = [col for col in processed_df.columns if col.endswith("_score_sum")]
-    standard_cols.extend(week_sum_cols)
-
-    processed_df[standard_cols] = scaler.fit_transform(processed_df[standard_cols])
+    for season in processed_df["season"].unique():
+        season_mask = processed_df["season"] == season
+        for col in week_sum_cols:
+            valid_mask = season_mask & (processed_df[col] > 0)
+            if valid_mask.sum() > 1:  # 至少需要2个有效值才能标准化
+                scaler_week = StandardScaler()
+                processed_df.loc[valid_mask, col] = scaler_week.fit_transform(
+                    pd.to_numeric(processed_df.loc[valid_mask, col])
+                    .to_numpy()
+                    .reshape(-1, 1)
+                ).flatten()
 
     encoded_industry = oe.fit_transform(processed_df[["celebrity_industry"]])
     encoded_df = pd.DataFrame(
@@ -33,6 +42,23 @@ def preprocessing(file_name: str) -> pd.DataFrame:
     )
     processed_df = pd.concat([processed_df, encoded_df], axis=1)
     processed_df.drop("celebrity_industry", axis=1, inplace=True)
+
+    week_score_cols = [
+        col
+        for col in processed_df.columns
+        if col.startswith("week")
+        and col.endswith("_score")
+        and not col.endswith("_score_sum")
+    ]
+    processed_df.drop(columns=week_score_cols, inplace=True)
+
+    columns_to_drop = [
+        "ballroom_partner",
+        "celebrity_homecountry/region",
+        "results",
+        "celebrity_homestate",
+    ]
+    processed_df.drop(columns=columns_to_drop, inplace=True)
 
     processed_df["celebrity_name"] = le.fit_transform(processed_df["celebrity_name"])
     return processed_df

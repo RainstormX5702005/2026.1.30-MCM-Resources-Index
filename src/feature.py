@@ -215,33 +215,6 @@ def handle_data(file_name: str) -> pd.DataFrame:
         raise
 
 
-def set_feature_encoding(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    对指定列进行编码和标准化
-
-    - 职业列进行 One-Hot Encoding
-    - 年龄列进行标准化
-    - 每周评分求和列进行标准化
-    - 晋级次数列进行标准化
-    """
-    # One-Hot Encoding for celebrity_industry
-    df = pd.get_dummies(df, columns=['celebrity_industry'], prefix='industry')
-
-    # Standardize celebrity_age_during_season
-    scaler = StandardScaler()
-    df['celebrity_age_during_season'] = scaler.fit_transform(df[['celebrity_age_during_season']])
-
-    # Standardize week score sum columns
-    score_sum_cols = [col for col in df.columns if col.endswith('_score_sum')]
-    if score_sum_cols:
-        df[score_sum_cols] = scaler.fit_transform(df[score_sum_cols])
-
-    # Standardize low_score_advanced_count
-    df['low_score_advanced_count'] = scaler.fit_transform(df[['low_score_advanced_count']])
-
-    return df
-
-
 def data_sparse(df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
     season_3_to_27 = df[df["season"].between(3, 27)]
     percentage = df[~df["season"].between(3, 27)]
@@ -294,9 +267,9 @@ def set_feature_rank(df: pd.DataFrame, *, method="rank") -> pd.DataFrame:
             df[rank_col] = 0
             mask = df[col] > 0
             if mask.any():
+                numeric_scores = pd.to_numeric(df.loc[mask, col], errors="coerce")
                 df.loc[mask, rank_col] = (
-                    df[mask]
-                    .groupby("season")[col]
+                    numeric_scores.groupby(df.loc[mask, "season"])
                     .rank(method="dense", ascending=False)
                     .astype(int)
                 )
