@@ -6,7 +6,10 @@ from configs.config import DATA_DIR, OUTPUT_DIR
 
 
 def preprocessing(file_name: str) -> pd.DataFrame:
-    """进行部分数据的标准化和编码处理"""
+    """进行部分数据的标准化和编码处理
+
+    advanced_rouns: 表示低分但可以晋级的次数的标准化，表示选手受粉丝的影响力
+    """
     file_path = OUTPUT_DIR / file_name
     df = pd.read_csv(file_path, sep=",", header=0, encoding="utf-8")
 
@@ -15,7 +18,7 @@ def preprocessing(file_name: str) -> pd.DataFrame:
     le = LabelEncoder()
     scaler = StandardScaler()
 
-    processed_df["advanced_rounds"] = processed_df["low_score_advanced_week"] - 1
+    processed_df["advanced_rounds"] = processed_df["low_score_advanced_count"]
 
     standard_cols = [
         "celebrity_age_during_season",
@@ -65,6 +68,10 @@ def preprocessing(file_name: str) -> pd.DataFrame:
 
 
 def main():
+    processed_df = preprocessing("processed_data.csv")
+    processed_path = OUTPUT_DIR / "preprocessed" / "preprocessed_data.csv"
+    processed_df.to_csv(processed_path, index=False)
+
     processed_percentage_df = preprocessing("processed_data_percentage.csv")
     processed_percentage_path = (
         OUTPUT_DIR / "preprocessed" / "preprocessed_data_percentage.csv"

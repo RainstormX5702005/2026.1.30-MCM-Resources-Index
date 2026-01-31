@@ -336,7 +336,7 @@ def main():
     df = set_feature_low_score(df)
     df = set_feature_score_sum(df)
 
-    ranked_df, percentage_df = data_sparse(df)
+    percentage_df, ranked_df = data_sparse(df)
 
     rank_based_df = set_feature_rank(ranked_df.copy(), method="rank")
     percentage = set_feature_rank(percentage_df.copy(), method="percentage")
