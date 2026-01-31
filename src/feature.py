@@ -217,8 +217,8 @@ def handle_data(file_name: str) -> pd.DataFrame:
 
 def data_sparse(df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
     season_3_to_27 = df[df["season"].between(3, 27)]
-    remaining = df[~df["season"].between(3, 27)]
-    return season_3_to_27, remaining
+    percentage = df[~df["season"].between(3, 27)]
+    return season_3_to_27, percentage
 
 
 def set_feature_score_sum(df: pd.DataFrame) -> pd.DataFrame:
@@ -267,9 +267,9 @@ def set_feature_rank(df: pd.DataFrame, *, method="rank") -> pd.DataFrame:
             df[rank_col] = 0
             mask = df[col] > 0
             if mask.any():
+                numeric_scores = pd.to_numeric(df.loc[mask, col], errors="coerce")
                 df.loc[mask, rank_col] = (
-                    df[mask]
-                    .groupby("season")[col]
+                    numeric_scores.groupby(df.loc[mask, "season"])
                     .rank(method="dense", ascending=False)
                     .astype(int)
                 )
@@ -301,32 +301,57 @@ def set_feature_rank(df: pd.DataFrame, *, method="rank") -> pd.DataFrame:
     return df
 
 
+def handle_viewer_data(file_name: str) -> pd.DataFrame:
+    """处理观众投票数据"""
+    try:
+        file_path = DATA_DIR / file_name
+        df = pd.read_excel(file_path, engine="openpyxl", usecols="A, E, G")
+        df = df.dropna().astype("string")
+        df.columns = ["season", "start_viewer", "final_viewer"]
+        match_pattern = re.compile(r"(\d+\.\d+)\[\d+\]")
+
+        numeric_cols = [
+            "start_viewer",
+            "final_viewer",
+        ]  # 列索引：1=E列, 2=G列（假设A是0, E是1, G是2）
+        for col_name in numeric_cols:
+            for idx, value in df[col_name].items():
+                match = match_pattern.match(str(value))
+                if match:
+                    extracted_decimal = match.group(1)  # 提取小数部分
+                    df.at[idx, col_name] = extracted_decimal  # 替换原值
+
+        df[numeric_cols] = df[numeric_cols].astype("float64")
+        df["avg_viewer"] = df[numeric_cols].mean(axis=1)
+
+        return df
+    except FileNotFoundError as e:
+        print(f"File not found: {e}")
+        raise
+
+
 def main():
     df = handle_data("2026_MCM_Problem_C_Data.csv")
     df = set_feature_finals(df)
     df = set_feature_low_score(df)
     df = set_feature_score_sum(df)
 
-    # 应用 rank 方法
-    df_rank = df.copy()
-    df_rank = set_feature_rank(df_rank, method="rank")
+    ranked_df, percentage_df = data_sparse(df)
 
-    # 应用 percentage 方法
-    df_percentage = df.copy()
-    df_percentage = set_feature_rank(df_percentage, method="percentage")
+    rank_based_df = set_feature_rank(ranked_df.copy(), method="rank")
+    percentage = set_feature_rank(percentage_df.copy(), method="percentage")
 
-    rank_df, percentage_df = data_sparse(df)
+    viewer_path = OUTPUT_DIR / "processed_viewer.csv"
+    viewer_df = handle_viewer_data("viewers.xlsx")
+    viewer_df.to_csv(viewer_path, index=False)
 
-    output_path = OUTPUT_DIR / "processed_data.csv"
-    output_path_rank = OUTPUT_DIR / "processed_data_rank.csv"
-    output_path_percentage = OUTPUT_DIR / "processed_data_percentage.csv"
+    rank_based_path = OUTPUT_DIR / "processed_data_rank.csv"
+    rank_based_df.to_csv(rank_based_path, index=False)
+    print(f"Sparse rank saved to: {rank_based_path}")
 
-    df.to_csv(output_path, index=False)
-    df_rank.to_csv(output_path_rank, index=False)
-    df_percentage.to_csv(output_path_percentage, index=False)
-    print(f"\nSaved to: {output_path}")
-    print(f"Rank version saved to: {output_path_rank}")
-    print(f"Percentage version saved to: {output_path_percentage}")
+    percentage_path = OUTPUT_DIR / "processed_data_percentage.csv"
+    percentage.to_csv(percentage_path, index=False)
+    print(f"Processed percentage saved to: {percentage_path}")
 
 
 if __name__ == "__main__":
