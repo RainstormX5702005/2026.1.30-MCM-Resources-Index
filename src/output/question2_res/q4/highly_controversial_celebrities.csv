@@ -1,0 +1,12 @@
+celebrity_name,both_methods_bottom_count,both_methods_pct,weeks_both_bottom,method1_bottom_count,weeks_method1_bottom,method2_bottom_count,weeks_method2_bottom,controversial_bottom_count,total_appearances,first_season
+Master P,3,100.0,"S2W1, S2W2, S2W3",3,"S2W1, S2W2, S2W3",3,"S2W1, S2W2, S2W3",3,3,2
+Barry Williams,2,100.0,"S32W4, S32W7",2,"S32W4, S32W7",2,"S32W4, S32W7",2,2,32
+Bill Nye,2,100.0,"S17W1, S17W2",2,"S17W1, S17W2",2,"S17W1, S17W2",2,2,17
+Charlotte McKinney,2,100.0,"S20W1, S20W2",2,"S20W1, S20W2",2,"S20W1, S20W2",2,2,20
+Cody Linley,2,100.0,"S7W7, S7W8",2,"S7W7, S7W8",2,"S7W7, S7W8",2,2,7
+Danny Amendola,2,100.0,"S33W7, S33W8",2,"S33W7, S33W8",2,"S33W7, S33W8",2,2,33
+Dwight Howard ,2,100.0,"S33W4, S33W5",2,"S33W4, S33W5",2,"S33W4, S33W5",2,2,33
+Lamar Odom,2,66.67,"S28W1, S28W3",2,"S28W1, S28W3",2,"S28W1, S28W3",2,3,28
+Paula Deen,2,66.67,"S21W3, S21W5",2,"S21W3, S21W5",3,"S21W3, S21W4, S21W5",3,3,21
+Cloris Leachman,2,50.0,"S7W3, S7W5",2,"S7W3, S7W5",2,"S7W3, S7W5",2,4,7
+Marie Osmond,2,50.0,"S5W6, S5W8",3,"S5W6, S5W8, S5W9",3,"S5W5, S5W6, S5W8",4,4,5

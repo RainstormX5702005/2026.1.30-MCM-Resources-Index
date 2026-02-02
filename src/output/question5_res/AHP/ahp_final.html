@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AHP Hierarchy for Competition Mechanism Optimization</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .ahp-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* SVG for connecting lines */
+        .connection-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .connection-line {
+            stroke: #999;
+            stroke-width: 1.5;
+            fill: none;
+            opacity: 0.4;
+        }
+
+        /* Layers */
+        .layer {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 100px;
+        }
+
+        .layer-title {
+            text-align: center;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .layer-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+
+        /* Goal Layer */
+        .goal-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 60px;
+            border-radius: 15px;
+            font-size: 1.5em;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            text-align: center;
+        }
+
+        /* Criteria Layer */
+        .criteria-item {
+            flex: 1;
+            max-width: 220px;
+        }
+
+        .criteria-box {
+            color: white;
+            padding: 25px 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .criteria-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        }
+
+        .criteria-box.c1 { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .criteria-box.c2 { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .criteria-box.c3 { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .criteria-box.c4 { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+
+        .criteria-number {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .criteria-title {
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        /* Alternatives Layer */
+        .alternatives-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: nowrap;
+        }
+
+        .alternative-item {
+            flex: 1;
+            max-width: 180px;
+        }
+
+        .alternative-box {
+            color: white;
+            padding: 20px 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .alternative-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+        }
+
+        .alternative-box.a1 { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .alternative-box.a2 { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .alternative-box.a3 { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .alternative-box.a4 { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+        .alternative-box.a5 { background: linear-gradient(135deg, #fa709a, #fee140); }
+        .alternative-box.a6 { background: linear-gradient(135deg, #30cfd0, #330867); }
+        .alternative-box.a7 { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
+
+        .alternative-number {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .alternative-title {
+            font-size: 0.95em;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
+        .footer {
+            text-align: center;
+            color: #666;
+            margin-top: 50px;
+            font-size: 0.95em;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+
+        .footer-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="ahp-container">
+        <svg class="connection-svg" id="connectionSvg"></svg>
+
+        <!-- Goal Layer -->
+        <div class="layer goal-layer" id="goalLayer">
+            <div class="layer-title">Goal Layer</div>
+            <div class="layer-content">
+                <div class="goal-box" id="goal">
+                    Reasonable Combination Scheme
+                </div>
+            </div>
+        </div>
+
+        <!-- Criteria Layer -->
+        <div class="layer criteria-layer" id="criteriaLayer">
+            <div class="layer-title">Criteria Layer</div>
+            <div class="layer-content">
+                <div class="criteria-item">
+                    <div class="criteria-box c1" id="c1">
+                        <div class="criteria-number">C1</div>
+                        <div class="criteria-title">Fairness</div>
+                    </div>
+                </div>
+
+                <div class="criteria-item">
+                    <div class="criteria-box c2" id="c2">
+                        <div class="criteria-number">C2</div>
+                        <div class="criteria-title">Participation</div>
+                    </div>
+                </div>
+
+                <div class="criteria-item">
+                    <div class="criteria-box c3" id="c3">
+                        <div class="criteria-number">C3</div>
+                        <div class="criteria-title">Revenue</div>
+                    </div>
+                </div>
+
+                <div class="criteria-item">
+                    <div class="criteria-box c4" id="c4">
+                        <div class="criteria-number">C4</div>
+                        <div class="criteria-title">Ratings</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alternatives Layer -->
+        <div class="layer alternatives-layer" id="alternativesLayer">
+            <div class="layer-title">Alternatives Layer</div>
+            <div class="alternatives-content">
+                <div class="alternative-item">
+                    <div class="alternative-box a1" id="a1">
+                        <div class="alternative-number">A1</div>
+                        <div class="alternative-title">Audience Voting Elimination</div>
+                    </div>
+                </div>
+
+                <div class="alternative-item">
+                    <div class="alternative-box a2" id="a2">
+                        <div class="alternative-number">A2</div>
+                        <div class="alternative-title">Celebrity Judge</div>
+                    </div>
+                </div>
+
+                <div class="alternative-item">
+                    <div class="alternative-box a3" id="a3">
+                        <div class="alternative-number">A3</div>
+                        <div class="alternative-title">Weight Adjustment</div>
+                    </div>
+                </div>
+
+                <div class="alternative-item">
+                    <div class="alternative-box a4" id="a4">
+                        <div class="alternative-number">A4</div>
+                        <div class="alternative-title">Judge Elimination</div>
+                    </div>
+                </div>
+
+                <div class="alternative-item">
+                    <div class="alternative-box a5" id="a5">
+                        <div class="alternative-number">A5</div>
+                        <div class="alternative-title">Revival Mechanism</div>
+                    </div>
+                </div>
+
+                <div class="alternative-item">
+                    <div class="alternative-box a6" id="a6">
+                        <div class="alternative-number">A6</div>
+                        <div class="alternative-title">All-Star Return</div>
+                    </div>
+                </div>
+
+                <div class="alternative-item">
+                    <div class="alternative-box a7" id="a7">
+                        <div class="alternative-number">A7</div>
+                        <div class="alternative-title">Rotation System</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-title">Analytic Hierarchy Process (AHP)</div>
+            <div>Eigenvector Method Based on Pairwise Comparison Matrix</div>
+        </div>
+    </div>
+
+    <script>
+        // Draw connecting lines
+        function drawConnections() {
+            const svg = document.getElementById('connectionSvg');
+            const container = document.querySelector('.ahp-container');
+            
+            // Set SVG size
+            svg.setAttribute('width', container.offsetWidth);
+            svg.setAttribute('height', container.offsetHeight);
+            
+            // Get positions
+            const goal = document.getElementById('goal');
+            const criteriaBoxes = ['c1', 'c2', 'c3', 'c4'].map(id => document.getElementById(id));
+            const alternativeBoxes = ['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7'].map(id => document.getElementById(id));
+            
+            const goalRect = goal.getBoundingClientRect();
+            const containerRect = container.getBoundingClientRect();
+            
+            const goalX = goalRect.left + goalRect.width / 2 - containerRect.left;
+            const goalY = goalRect.bottom - containerRect.top;
+            
+            // Draw lines from Goal to Criteria
+            criteriaBoxes.forEach(box => {
+                const rect = box.getBoundingClientRect();
+                const x = rect.left + rect.width / 2 - containerRect.left;
+                const y = rect.top - containerRect.top;
+                
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                line.setAttribute('d', `M ${goalX} ${goalY} L ${x} ${y}`);
+                line.setAttribute('class', 'connection-line');
+                svg.appendChild(line);
+            });
+            
+            // Draw lines from Criteria to Alternatives
+            criteriaBoxes.forEach(criteriaBox => {
+                const criteriaRect = criteriaBox.getBoundingClientRect();
+                const criteriaX = criteriaRect.left + criteriaRect.width / 2 - containerRect.left;
+                const criteriaY = criteriaRect.bottom - containerRect.top;
+                
+                alternativeBoxes.forEach(altBox => {
+                    const altRect = altBox.getBoundingClientRect();
+                    const altX = altRect.left + altRect.width / 2 - containerRect.left;
+                    const altY = altRect.top - containerRect.top;
+                    
+                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    line.setAttribute('d', `M ${criteriaX} ${criteriaY} L ${altX} ${altY}`);
+                    line.setAttribute('class', 'connection-line');
+                    svg.appendChild(line);
+                });
+            });
+        }
+        
+        // Draw on load and resize
+        window.addEventListener('load', drawConnections);
+        window.addEventListener('resize', () => {
+            const svg = document.getElementById('connectionSvg');
+            svg.innerHTML = '';
+            drawConnections();
+        });
+    </script>
+</body>
+</html>

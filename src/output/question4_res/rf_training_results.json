@@ -1,0 +1,205 @@
+{
+  "judge_score_model": {
+    "feature_type": "judge_score",
+    "n_samples_train": 294,
+    "n_samples_test": 127,
+    "n_features": 21,
+    "best_params": {
+      "rf__max_depth": 14,
+      "rf__max_features": null,
+      "rf__min_samples_leaf": 3,
+      "rf__min_samples_split": 2,
+      "rf__n_estimators": 500
+    },
+    "cv_score": 0.8099081827790446,
+    "test_rmse": 0.13772502476816284,
+    "test_r2": 0.7532331541905206,
+    "cv10_train_r2_mean": 0.9430715422867533,
+    "cv10_train_r2_std": 0.0023939045509411587,
+    "cv10_test_r2_mean": 0.7747697408564141,
+    "cv10_test_r2_std": 0.07981660716868492,
+    "cv10_train_rmse": 0.06861979833094259,
+    "cv10_test_rmse": 0.13225818760966543,
+    "overfit_gap": 0.16830180143033913,
+    "top_10_features": [
+      {
+        "feature": "week1_combined_rank",
+        "importance": 0.4298434265638288
+      },
+      {
+        "feature": "week2_combined_pct",
+        "importance": 0.18559635125595975
+      },
+      {
+        "feature": "week2_combined_rank",
+        "importance": 0.12080292927380826
+      },
+      {
+        "feature": "week2_audience_pct",
+        "importance": 0.11319718443898259
+      },
+      {
+        "feature": "week1_judge_rank",
+        "importance": 0.01946864716166037
+      },
+      {
+        "feature": "week2_judge_pct",
+        "importance": 0.014067954022549005
+      },
+      {
+        "feature": "celebrity_age_during_season",
+        "importance": 0.013847982657586343
+      },
+      {
+        "feature": "week2_judge_rank",
+        "importance": 0.013329974058685568
+      },
+      {
+        "feature": "week1_audience_pct",
+        "importance": 0.01324668752022916
+      },
+      {
+        "feature": "season_total_contestants",
+        "importance": 0.012346028385807844
+      }
+    ]
+  },
+  "audience_votes_model": {
+    "feature_type": "audience_votes",
+    "n_samples_train": 294,
+    "n_samples_test": 127,
+    "n_features": 21,
+    "best_params": {
+      "rf__max_depth": 12,
+      "rf__max_features": null,
+      "rf__min_samples_leaf": 3,
+      "rf__min_samples_split": 2,
+      "rf__n_estimators": 300
+    },
+    "cv_score": 0.8465090926046859,
+    "test_rmse": 0.1304059298188923,
+    "test_r2": 0.7777228887697633,
+    "cv10_train_r2_mean": 0.9551969175352923,
+    "cv10_train_r2_std": 0.0018075185703651806,
+    "cv10_test_r2_mean": 0.8199556004166771,
+    "cv10_test_r2_std": 0.058711043607608385,
+    "cv10_train_rmse": 0.0608858466033302,
+    "cv10_test_rmse": 0.11918184117114582,
+    "overfit_gap": 0.1352413171186152,
+    "top_10_features": [
+      {
+        "feature": "week1_combined_rank",
+        "importance": 0.5131733872642318
+      },
+      {
+        "feature": "week2_combined_pct",
+        "importance": 0.12878883939884891
+      },
+      {
+        "feature": "week2_audience_pct",
+        "importance": 0.11156073719158194
+      },
+      {
+        "feature": "week2_combined_rank",
+        "importance": 0.07308082945421562
+      },
+      {
+        "feature": "week1_audience_rank",
+        "importance": 0.054991117676075216
+      },
+      {
+        "feature": "week2_audience_rank",
+        "importance": 0.02122033865223187
+      },
+      {
+        "feature": "celebrity_age_during_season",
+        "importance": 0.014586525929224855
+      },
+      {
+        "feature": "week1_audience_pct",
+        "importance": 0.012328090453101662
+      },
+      {
+        "feature": "season_total_contestants",
+        "importance": 0.011090772259815716
+      },
+      {
+        "feature": "ballroom_partner_count",
+        "importance": 0.009714293138505477
+      }
+    ]
+  },
+  "static_features_contribution": {
+    "judge_model": 0.05889784614006147,
+    "audience_model": 0.0536004284708808
+  },
+  "week_features_contribution": {
+    "judge_model": 0.9411021538599376,
+    "audience_model": 0.9463995715291182
+  },
+  "static_features_comparison": [
+    {
+      "feature": "celebrity_homestate",
+      "importance_judge": 0.0097860840210927,
+      "importance_audience": 0.0076374037456481,
+      "diff": 0.0021486802754445995,
+      "abs_diff": 0.0021486802754445995
+    },
+    {
+      "feature": "ballroom_partner",
+      "importance_judge": 0.0067882636875458,
+      "importance_audience": 0.0051804824231515,
+      "diff": 0.0016077812643942998,
+      "abs_diff": 0.0016077812643942998
+    },
+    {
+      "feature": "celebrity_industry",
+      "importance_judge": 0.0053141998557525,
+      "importance_audience": 0.0039547216218218,
+      "diff": 0.0013594782339306994,
+      "abs_diff": 0.0013594782339306994
+    },
+    {
+      "feature": "season_total_contestants",
+      "importance_judge": 0.0123460283858078,
+      "importance_audience": 0.0110907722598157,
+      "diff": 0.0012552561259921002,
+      "abs_diff": 0.0012552561259921002
+    },
+    {
+      "feature": "celebrity_age_during_season",
+      "importance_judge": 0.0138479826575863,
+      "importance_audience": 0.0145865259292248,
+      "diff": -0.0007385432716385011,
+      "abs_diff": 0.0007385432716385011
+    },
+    {
+      "feature": "ballroom_partner_count",
+      "importance_judge": 0.0091914905949702,
+      "importance_audience": 0.0097142931385054,
+      "diff": -0.0005228025435352005,
+      "abs_diff": 0.0005228025435352005
+    },
+    {
+      "feature": "gender",
+      "importance_judge": 0.0014526756648206,
+      "importance_audience": 0.0011285887713747,
+      "diff": 0.00032408689344590007,
+      "abs_diff": 0.00032408689344590007
+    },
+    {
+      "feature": "is_from_usa",
+      "importance_judge": 0.0001652941608079,
+      "importance_audience": 0.0003076405813388,
+      "diff": -0.0001423464205309,
+      "abs_diff": 0.0001423464205309
+    },
+    {
+      "feature": "is_legacy_season",
+      "importance_judge": 5.827111677675486e-06,
+      "importance_audience": 0.0,
+      "diff": 5.827111677675486e-06,
+      "abs_diff": 5.827111677675486e-06
+    }
+  ]
+}

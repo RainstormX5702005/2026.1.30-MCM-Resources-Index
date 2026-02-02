@@ -1,0 +1,5 @@
+celebrity_name,season,week,judge_score,placement,weeks_participated,method1_combined_rank,method2_combined_pct,method1_pos,method2_pos,is_eliminated,n_contestants,dist_method1,dist_method2
+Jerry Rice,2,8,26.666600000000003,2,8,6.0,0.6113725464459111,1.0,1.0,1,1,0.0,0.0
+Billy Ray Cyrus,4,8,19.0,5,8,10.0,0.1911863756894507,1.0,1.0,1,1,0.0,0.0
+Bristol Palin,11,10,25.666600000000003,3,10,4.0,0.6448931740752923,1.0,1.0,1,1,0.0,0.0
+Bobby Bones,27,9,27.0,1,9,5.0,0.4876255599569818,1.0,1.0,1,1,0.0,0.0

@@ -1,0 +1,409 @@
+celebrity_name,appearances,first_season,last_season,gender
+Shawn Johnson,2,8,15,0
+Bristol Palin,2,11,15,0
+Apolo Anton Ohno,2,4,15,1
+Sabrina Bryan,2,5,15,0
+Joey Fatone,2,4,15,1
+Helio Castroneves,2,5,15,1
+Kirstie Alley,2,12,15,0
+Emmitt Smith,2,3,15,1
+Melissa Rycroft,2,8,15,0
+Gilles Marini,2,8,15,1
+Pamela Anderson,2,10,15,0
+Drew Lachey,2,2,15,1
+Kelly Monaco,2,1,15,0
+Michael Irvin,1,9,9,1
+Milo Manheim,1,27,27,1
+Mike Catherwood,1,12,12,1
+"Mike ""The Miz"" Mizanin",1,30,30,1
+Maureen McCormick,1,23,23,0
+Michael Waltrip,1,19,19,1
+Michael Sam,1,20,20,1
+Melanie C,1,30,30,0
+Mel B,1,5,5,0
+Metta World Peace (Ron),1,13,13,1
+Maurice Greene,1,7,7,1
+Meryl Davis,1,18,18,0
+Melora Hardin,1,30,30,0
+Mira Sorvino,1,32,32,0
+Melissa Joan Hart,1,9,9,0
+Mauricio Umansky,1,32,32,1
+Melissa Gilbert,1,14,14,0
+Michael Bolton,1,11,11,1
+AJ McLean,1,29,29,1
+Mirai Nagasu,1,26,26,0
+Natalie Coughlin,1,9,9,0
+Niecy Nash,1,10,10,0
+Nicole Scherzinger,1,10,10,0
+"Nicole ""Snooki"" Polizzi",1,17,17,0
+Nick Viall,1,24,24,1
+Nick Lachey,1,25,25,1
+Nick Carter,1,21,21,1
+Nev Schulman,1,29,29,1
+Nelly,1,29,29,1
+NeNe Leakes,1,18,18,0
+Nastia Liukin,1,20,20,0
+Mischa Barton,1,22,22,0
+Nancy McKeon,1,27,27,0
+Nancy Kerrigan,1,24,24,0
+Nancy Grace,1,13,13,0
+Mya,1,9,9,0
+Mr. T,1,24,24,1
+Monique Coleman,1,3,3,0
+Monica Seles,1,6,6,0
+Matt Walsh,1,32,32,1
+Misty May-Treanor,1,7,7,0
+Monica Aldama,1,29,29,0
+Mary Wilson,1,28,28,0
+Matt James,1,30,30,1
+Kristin Cavallari,1,13,13,0
+Lea Thompson,1,19,19,0
+Lawrence Taylor,1,8,8,1
+Laurie Hernandez,1,23,23,0
+Lauren Jauregui,1,34,34,0
+Lauren Alaina,1,28,28,0
+Lance Bass,1,7,7,1
+Lamar Odom,1,28,28,1
+Laila Ali,1,4,4,0
+Kyle Massey,1,11,11,1
+Kurt Warner,1,11,11,1
+Kristi Yamaguchi,1,6,6,0
+Master P,1,2,2,1
+Kim Zolciak-Biermann,1,21,21,0
+Kim Kardashian,1,7,7,0
+Kim Fields,1,22,22,0
+Keyshawn Johnson,1,17,17,1
+Kenya Moore,1,30,30,0
+Kenny Mayne,1,2,2,1
+Kendra Wilkinson,1,12,12,0
+Kelly Osbourne,1,9,9,0
+Kellie Pickler,1,16,16,0
+Kel Mitchell,1,28,28,1
+Leah Remini,1,17,17,0
+Leeza Gibbons,1,4,4,0
+Lele Pons,1,32,32,0
+Lil' Kim,1,8,8,0
+Nikki Glaser,1,27,27,0
+Mary Lou Retton,1,27,27,0
+Martina Navratilova,1,14,14,0
+Martin Kove,1,30,30,1
+Marlee Matlin,1,6,6,0
+Marla Maples,1,22,22,0
+Mark Dacascos,1,9,9,1
+Mark Cuban,1,5,5,1
+Marissa Jaret Winokur,1,6,6,0
+Mario Lopez,1,3,3,1
+Mario,1,6,6,1
+Marilu Henner,1,23,23,0
+Marie Osmond,1,5,5,0
+Maria Menounos,1,14,14,0
+Margaret Cho,1,11,11,0
+Macy Gray,1,9,9,0
+Louie Vito,1,9,9,1
+Lolo Jones,1,19,19,0
+Lisa Vanderpump,1,16,16,0
+Lisa Rinna,1,2,2,0
+Lindsey Stirling,1,25,25,0
+Nikki Bella,1,25,25,0
+Nyle DiMarco,1,22,22,1
+Noah Galloway,1,20,20,1
+Terra Jole,1,23,23,0
+Trevor Donovan,1,31,31,1
+Tori Spelling,1,33,33,0
+Tonya Harding,1,26,26,0
+Toni Braxton,1,7,7,0
+Tommy Chong,1,19,19,1
+Tom DeLay,1,9,9,1
+Tinashe,1,27,27,0
+Tia Carrere,1,2,2,0
+The Situation,1,11,11,1
+Terrell Owens,1,25,25,1
+Teresa Giudice,1,31,31,0
+Normani,1,24,24,0
+Ted McGinley,1,7,7,1
+Tavis Smiley,1,19,19,1
+Tatum O'Neal,1,2,2,0
+Tamar Braxton,1,21,21,0
+Suzanne Somers,1,20,20,0
+Susan Lucci,1,7,7,0
+Suni Lee,1,30,30,0
+Sugar Ray Leonard,1,12,12,1
+Steve-O,1,8,8,1
+Steve Wozniak,1,8,8,1
+Trista Sutter,1,1,1,0
+Tucker Carlson,1,3,3,1
+Ty Murray,1,8,8,1
+Tyson Beckford,1,32,32,1
+Xochitl Gomez,1,32,32,0
+Wynonna Judd,1,16,16,0
+Willow Shields,1,20,20,0
+William Levy,1,14,14,1
+Willa Ford,1,3,3,0
+Whitney Leavitt,1,34,34,0
+Wendy Williams,1,12,12,0
+Wayne Newton,1,5,5,1
+Wayne Brady,1,31,31,1
+Warren Sapp,1,7,7,1
+Wanya Morris,1,22,22,1
+Von Miller,1,22,22,1
+Vivica A. Fox,1,3,3,1
+Vinny Guadagnino,1,31,31,1
+Victoria Arlen,1,25,25,0
+Victor Ortiz,1,16,16,1
+Victor Espinoza,1,21,21,1
+Veron Davis,1,29,29,1
+Vanilla Ice,1,23,23,1
+Vanessa Lachey,1,25,25,0
+Valerie Harper,1,17,17,0
+Steve Guttenberg,1,6,6,1
+Stephen Nedoroscik,1,33,33,1
+Stacy Keibler,1,2,2,0
+Robert Herjavec,1,20,20,1
+Riker Lynch,1,20,20,1
+Ricki Lake,1,13,13,0
+Rick Perry,1,23,23,1
+Rick Fox,1,11,11,1
+Reginald VelJohnson,1,33,33,1
+Redfoo,1,20,20,1
+Ray Lewis,1,28,28,1
+Rashad Jennings,1,24,24,1
+Randy Couture,1,19,19,1
+Ralph Macchio,1,12,12,1
+Rachel Hunter,1,1,1,1
+Priscilla Presley,1,6,6,0
+Phaedra Parks,1,33,33,0
+Petra Nemcova,1,12,12,0
+Penn Jillette,1,6,6,1
+Paulina Porizkova,1,4,4,0
+Paula Deen,1,21,21,0
+Patti LaBelle,1,20,20,0
+Paige VanZant,1,22,22,0
+Olivia Jade,1,30,30,0
+Katherine Jenkins,1,14,14,0
+Rob Kardashian,1,13,13,1
+Robert Irwin,1,34,34,1
+Skai Jackson,1,29,29,0
+Rocco DiSpirito,1,7,7,1
+Simone Biles,1,24,24,0
+Sherri Sheperd,1,14,14,0
+Shannon Elizabeth,1,6,6,0
+Shannen Doherty,1,10,10,0
+Shanna Moakler,1,3,3,0
+Shangela,1,31,31,0
+Shandi Finnessey,1,4,4,0
+Selma Blair,1,31,31,0
+Sean Spicer,1,28,28,1
+Sean Lowe,1,16,16,1
+Sean Avery,1,18,18,1
+Scott Hoying,1,34,34,1
+Sasha Pieterse,1,25,25,0
+Sara Evans,1,3,3,0
+Sam Champion,1,31,31,1
+Sailor Brinkley-Cook,1,28,28,0
+Sadie Robertson,1,19,19,0
+Ryan Lochte,1,23,23,1
+Rumer Willis,1,20,20,0
+Roshon Fegan,1,14,14,1
+Romeo,1,12,12,1
+Kathy Ireland,1,9,9,0
+Karamo Brown,1,28,28,1
+Kate Gosselin,1,10,10,0
+Charlotte McKinney,1,20,20,0
+Christina Milian,1,17,17,0
+Chrishell Stause,1,29,29,0
+Chris Soules,1,20,20,1
+Chris Mazdzer,1,26,26,1
+Chris Kattan,1,24,24,1
+Chris Jericho,1,12,12,1
+Cheryl Ladd,1,31,31,0
+Chelsea Kane,1,12,12,0
+Chaz Bono,1,13,13,1
+Charo,1,24,24,0
+Charlie White,1,18,18,1
+Kate Flannery,1,28,28,0
+Charli D'Amelio,1,31,31,0
+Charles Oakley,1,29,29,1
+Charity Lawson,1,32,32,0
+Chandler Kinney,1,33,33,0
+Chaka Khan,1,21,21,0
+Chad Ochocinco,1,10,10,1
+Carson Kressley,1,13,13,1
+Carole Baskin,1,29,29,0
+Carlos PenaVega,1,21,21,1
+Candace Cameron Bure,1,18,18,0
+Christine Chiu,1,30,30,0
+Chuck Liddell,1,9,9,1
+Chuck Wicks,1,8,8,1
+Chynna Phillips,1,13,13,0
+Debi Mazar,1,9,9,0
+Debbie Gibson,1,25,25,0
+DeMarcus Ware,1,27,27,1
+David Ross,1,24,24,1
+David Hasselhoff,1,11,11,1
+David Arquette,1,13,13,1
+David Alan Grier,1,8,8,1
+Danny Amendola,1,33,33,1
+Danielle Fishel,1,34,34,0
+Daniel Durant,1,31,31,1
+Danica McKellar,1,18,18,0
+Danelle Umstead,1,27,27,0
+D. L. Hughley,1,16,16,1
+Cristian de la Fuente,1,6,6,1
+Corey Feldman,1,34,34,1
+Corbin Bleu,1,17,17,1
+Cody Simpson,1,18,18,1
+Cody Rigsby,1,30,30,1
+Cody Linley,1,7,7,1
+Clyde Drexler,1,4,4,1
+Cloris Leachman,1,7,7,0
+Cameron Mathison,1,5,5,1
+Calvin Johnson Jr.,1,23,23,1
+Buzz Aldrin,1,10,10,1
+Antonio Brown,1,22,22,1
+Anna Delvey,1,33,33,0
+Andy Richter,1,34,34,1
+Andy Grammer,1,21,21,1
+Andy Dick,1,16,16,1
+Amy Purdy,1,18,18,0
+Amber Rose,1,23,23,0
+Amber Riley,1,17,17,0
+Amanda Kloots,1,30,30,0
+Alyson Hannigan,1,32,32,0
+Ally Brooke,1,28,28,0
+Alix Earle,1,34,34,0
+Alfonso Ribeiro,1,19,19,1
+Alexis Ren,1,27,27,0
+Alexandra Raisman,1,16,16,0
+Alexa PenaVega,1,21,21,0
+Alek Skarlatos,1,21,21,1
+Albert Reed,1,5,5,1
+Aiden Turner,1,10,10,1
+Adrian Peterson,1,32,32,1
+Adam Rippon,1,26,26,1
+Adam Carolla,1,6,6,1
+Anne Heche,1,29,29,0
+Antonio Sabato Jr.,1,19,19,1
+Brooks Nader,1,33,33,0
+Ariana Madix,1,32,32,0
+Brooke Burke,1,7,7,0
+Brian Austin Green,1,30,30,1
+Brant Daugherty,1,17,17,1
+Brandy,1,11,11,0
+Bonner Bolton,1,24,24,1
+Bobby Bones,1,27,27,1
+Bindi Irwin,1,21,21,0
+Billy Ray Cyrus,1,4,4,1
+Billy Dee Williams,1,18,18,1
+Bill Nye,1,17,17,1
+Bill Engvall,1,17,17,1
+Betsey Johnson,1,19,19,0
+Bethany Mota,1,19,19,0
+Belinda Carlisle,1,8,8,0
+Barry Williams,1,32,32,1
+Baron Davis,1,34,34,1
+Barbara Corcoran,1,25,25,0
+Babyface,1,23,23,1
+Audrina Patridge,1,11,11,0
+Ashley Hamiliton,1,9,9,1
+Arike Ogunbowale,1,26,26,0
+Denise Richards,1,8,8,0
+Derek Fisher,1,25,25,1
+Diana Nyad,1,18,18,0
+JoJo Siwa,1,30,30,0
+Jessie James Decker,1,31,31,0
+Jesse Metcalfe,1,29,29,1
+Jerry Springer,1,3,3,1
+Jerry Rice,1,2,2,1
+Jennifer Grey,1,11,11,0
+Jennie Garth,1,5,5,0
+Jennie Finch Daigle,1,26,26,0
+Jenn Tran,1,33,33,0
+Jen Affleck,1,34,34,0
+Jeffrey Ross,1,7,7,1
+Jeannie Mai,1,29,29,0
+Jason Taylor,1,6,6,1
+Jason Mraz,1,32,32,1
+Jason Lewis,1,31,31,1
+Janel Parrish,1,19,19,0
+Jane Seymour,1,5,5,0
+Jana Kramer,1,23,23,0
+Jamie Lynn Spears,1,32,32,0
+Jamie Anderson,1,26,26,0
+James Van Der Beek,1,28,28,1
+James Maslow,1,18,18,1
+Jimmie Allen,1,30,30,1
+Joanna Krupa,1,9,9,0
+Jaleel White,1,14,14,1
+Jodie Sweetin,1,22,22,0
+Kareem Abdul-Jabbar,1,26,26,1
+Aaron Carter,1,9,9,1
+Kaitlyn Bristowe,1,29,29,0
+Justina Machado,1,29,29,0
+Juan Pablo Di Pace,1,27,27,1
+Josie Maran,1,5,5,0
+Josh Norman,1,26,26,1
+Joseph Baena,1,31,31,1
+Jordin Sparks,1,31,31,0
+Jordan Fisher,1,25,25,1
+Jordan Chiles,1,34,34,0
+Jonathan Bennett,1,19,19,1
+Johnny Weir,1,29,29,1
+Johnny Damon,1,26,26,1
+John Schneider,1,27,27,1
+John Ratzenberger,1,4,4,1
+John O'Hurley,1,1,1,1
+Joey McIntyre,1,1,1,1
+Joey Lawrence,1,3,3,1
+Joey Graziadei,1,33,33,1
+Joe Amabile,1,27,27,1
+James Hinchcliffe,1,23,23,1
+Jake T. Austin,1,23,23,1
+Donald Driver,1,14,14,1
+George Hamilton,1,2,2,1
+Gary Busey,1,21,21,1
+Gabby Windey,1,31,31,0
+Frankie Muniz,1,25,25,1
+Floyd Mayweather Jr.,1,5,5,1
+Florence Henderson,1,11,11,0
+Evanna Lynch,1,27,27,0
+Evander Holyfield,1,1,1,1
+Evan Lysacek,1,10,10,1
+Erin Andrews,1,10,10,0
+Erika Jayne,1,24,24,0
+Eric Roberts,1,33,33,1
+Elizabeth Berkley Lauren,1,17,17,0
+Elisabetta Canalis,1,13,13,0
+Elaine Hendrix,1,34,34,0
+Dylan Efron,1,34,34,1
+Dwight Howard?,1,33,33,1
+Drew Scott,1,25,25,1
+Drew Carey,1,18,18,1
+Doug Flutie,1,22,22,1
+Dorothy Hamill,1,16,16,0
+Donny Osmond,1,9,9,1
+Gavin DeGraw,1,14,14,1
+Geraldo Rivera,1,22,22,1
+Jake Pavelka,1,10,10,1
+Ginger Zee,1,22,22,0
+Jacoby Jones,1,16,16,1
+Jack Wagner,1,14,14,1
+Jack Osbourne,1,17,17,1
+J.R. Martinez,1,13,13,1
+Ingo Rademacher,1,16,16,1
+Iman Shumpert,1,30,30,1
+Ilona Maher,1,33,33,0
+Ian Ziering,1,4,4,1
+Hope Solo,1,13,13,0
+Holly Madison,1,8,8,0
+Hines Ward,1,12,12,1
+Hilaria Baldwin,1,34,34,0
+Heidi D'Amelio,1,31,31,0
+Heather Morris,1,24,24,0
+Heather Mills,1,4,4,0
+Hayes Grier,1,21,21,1
+Harry Jowsey,1,32,32,1
+Harry Hamlin,1,3,3,1
+Hannah Brown,1,28,28,0
+Gladys Knight,1,14,14,0
+Giselle Fernandez,1,2,2,0
+Zendaya,1,16,16,0

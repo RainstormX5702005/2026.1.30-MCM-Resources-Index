@@ -1,0 +1,166 @@
+celebrity_name,both_methods_bottom_count,controversial_bottom_count,method1_bottom_count,method2_bottom_count,total_appearances,first_season,both_methods_pct
+Master P,3,3,3,3,3,2,100.0
+Barry Williams,2,2,2,2,2,32,100.0
+Bill Nye,2,2,2,2,2,17,100.0
+Charlotte McKinney,2,2,2,2,2,20,100.0
+Cody Linley,2,2,2,2,2,7,100.0
+Danny Amendola,2,2,2,2,2,33,100.0
+Dwight Howard ,2,2,2,2,2,33,100.0
+Lamar Odom,2,2,2,2,3,28,66.67
+Paula Deen,2,3,2,3,3,21,66.67
+Cloris Leachman,2,2,2,2,4,7,50.0
+Marie Osmond,2,4,3,3,4,5,50.0
+Anne Heche,1,1,1,1,1,29,100.0
+Barbara Corcoran,1,1,1,1,1,25,100.0
+Betsey Johnson,1,1,1,1,1,19,100.0
+Carole Baskin,1,1,1,1,1,29,100.0
+Chaka Khan,1,1,1,1,1,21,100.0
+Charles Oakley,1,1,1,1,1,29,100.0
+Cheryl Ladd,1,1,1,1,1,31,100.0
+Chris Kattan,1,1,1,1,1,24,100.0
+Chrishell Stause,1,1,1,1,1,29,100.0
+Cody Simpson,1,1,1,1,1,18,100.0
+Corey Feldman,1,1,1,1,1,34,100.0
+Elisabetta Canalis,1,1,1,1,1,13,100.0
+Evander Holyfield,1,1,1,1,1,1,100.0
+Gavin DeGraw,1,1,1,1,1,14,100.0
+George Hamilton,1,1,1,1,1,2,100.0
+Geraldo Rivera,1,1,1,1,1,22,100.0
+Ilona Maher,1,1,1,1,1,33,100.0
+Ingo Rademacher,1,1,1,1,1,16,100.0
+Jonathan Bennett,1,1,1,1,1,19,100.0
+Karamo Brown,1,1,1,1,1,28,100.0
+Kate Flannery,1,1,1,1,1,28,100.0
+Kurt Warner,1,1,1,1,1,11,100.0
+Leeza Gibbons,1,1,1,1,1,4,100.0
+Louie Vito,1,1,1,1,1,9,100.0
+Margaret Cho,1,1,1,1,1,11,100.0
+Martin Kove,1,1,1,1,1,30,100.0
+Martina Navratilova,1,1,1,1,1,14,100.0
+Mauricio Umansky,1,1,1,1,1,32,100.0
+Mike Catherwood,1,1,1,1,1,12,100.0
+Monica Seles,1,1,1,1,1,6,100.0
+Nick Carter,1,1,1,1,1,21,100.0
+Priscilla Presley,1,1,1,1,1,6,100.0
+Redfoo,1,1,1,1,1,20,100.0
+Roshon Fegan,1,1,1,1,1,14,100.0
+Sasha Pieterse,1,1,1,1,1,25,100.0
+Sean Lowe,1,1,1,1,1,16,100.0
+Suzanne Somers,1,1,1,1,1,20,100.0
+Tom DeLay,1,1,1,1,1,9,100.0
+Tyson Beckford,1,1,1,1,1,32,100.0
+Valerie Harper,1,1,1,1,1,17,100.0
+Buzz Aldrin,1,1,1,1,2,10,50.0
+Drew Carey,1,2,1,2,2,18,50.0
+Elaine Hendrix,1,2,2,1,2,34,50.0
+Eric Roberts,1,1,1,1,2,33,50.0
+Jason Mraz,1,2,2,1,2,32,50.0
+Rick Perry,1,2,1,2,2,23,50.0
+Rocco DiSpirito,1,1,1,1,2,7,50.0
+Stephen Nedoroscik,1,1,1,1,2,33,50.0
+Steve Wozniak,1,1,1,1,2,8,50.0
+Wendy Williams,1,2,1,2,2,12,50.0
+Andy Dick,1,3,1,3,3,16,33.33
+Chaz Bono,1,3,1,3,3,13,33.33
+D. L. Hughley,1,3,1,3,3,16,33.33
+Kate Gosselin,1,3,1,3,3,10,33.33
+Mark Cuban,1,1,1,1,3,5,33.33
+Mr. T,1,2,1,2,3,24,33.33
+Ralph Macchio,1,2,1,2,3,12,33.33
+Jerry Rice,1,2,2,1,4,2,25.0
+Jerry Springer,1,1,1,1,4,3,25.0
+Tommy Chong,1,2,1,2,4,19,25.0
+Ty Murray,1,3,1,3,4,8,25.0
+Alyson Hannigan,1,2,1,2,5,32,20.0
+Michael Waltrip,1,4,1,4,5,19,20.0
+Vinny Guadagnino,1,2,2,1,5,31,20.0
+Joe Amabile,1,4,1,4,6,27,16.67
+Sean Spicer,1,3,3,1,7,28,14.29
+Andy Richter,1,4,2,3,8,34,12.5
+Adam Carolla,0,1,0,1,1,6,0.0
+Adrian Peterson,0,1,0,1,1,32,0.0
+Aiden Turner,0,0,0,0,1,10,0.0
+Alek Skarlatos,0,1,0,1,4,21,0.0
+Amber Riley,0,0,0,0,1,17,0.0
+Antonio Brown,0,2,1,1,2,22,0.0
+Antonio Sabato Jr.,0,1,0,1,1,19,0.0
+Bill Engvall,0,2,1,1,6,17,0.0
+Billy Dee Williams,0,1,0,1,1,18,0.0
+Billy Ray Cyrus,0,3,0,3,4,4,0.0
+Bobby Bones,0,1,0,1,3,27,0.0
+Bonner Bolton,0,0,0,0,3,24,0.0
+Calvin Johnson Jr.,0,0,0,0,1,23,0.0
+Cameron Mathison,0,1,1,0,1,5,0.0
+Candace Cameron Bure,0,1,1,0,4,18,0.0
+Carson Kressley,0,1,0,1,1,13,0.0
+Chad Ochocinco,0,1,0,1,1,10,0.0
+Chris Soules,0,0,0,0,3,20,0.0
+Clyde Drexler,0,3,0,3,3,4,0.0
+Cody Rigsby,0,0,0,0,2,30,0.0
+Cristian de la Fuente,0,0,0,0,2,6,0.0
+Daniel Durant,0,0,0,0,1,31,0.0
+David Ross,0,0,0,0,5,24,0.0
+Donny Osmond,0,1,1,0,2,9,0.0
+Doug Flutie,0,1,0,1,2,22,0.0
+Drew Scott,0,0,0,0,3,25,0.0
+Dylan Efron,0,1,1,0,1,34,0.0
+Elizabeth Berkley Lauren,0,1,0,1,1,17,0.0
+Floyd Mayweather Jr. ,0,1,0,1,1,5,0.0
+Gary Busey,0,1,0,1,2,21,0.0
+Gladys Knight,0,2,0,2,2,14,0.0
+Hannah Brown,0,0,0,0,1,28,0.0
+Harry Jowsey,0,3,1,2,5,32,0.0
+Hope Solo,0,1,0,1,1,13,0.0
+Iman Shumpert,0,0,0,0,3,30,0.0
+Jack Osbourne,0,0,0,0,1,17,0.0
+James Hinchcliffe,0,0,0,0,1,23,0.0
+James Maslow,0,0,0,0,2,18,0.0
+Jane Seymour,0,0,0,0,1,5,0.0
+Jodie Sweetin,0,0,0,0,2,22,0.0
+Joey McIntyre,0,1,1,0,1,1,0.0
+John Ratzenberger,0,2,1,1,2,4,0.0
+John Schneider,0,2,1,1,2,27,0.0
+Kaitlyn Bristowe,0,0,0,0,1,29,0.0
+Kareem Abdul-Jabbar,0,0,0,0,1,26,0.0
+Katherine Jenkins,0,0,0,0,1,14,0.0
+Kendra Wilkinson,0,2,0,2,2,12,0.0
+Keyshawn Johnson,0,1,0,1,1,17,0.0
+Kim Zolciak-Biermann,0,1,0,1,1,21,0.0
+Lance Bass,0,0,0,0,1,7,0.0
+Lauren Alaina,0,0,0,0,2,28,0.0
+Lawrence Taylor,0,0,0,0,1,8,0.0
+Leah Remini,0,0,0,0,2,17,0.0
+Maria Menounos,0,0,0,0,1,14,0.0
+Marilu Henner,0,2,0,2,3,23,0.0
+Marissa Jaret Winokur,0,0,0,0,2,6,0.0
+Marlee Matlin,0,0,0,0,1,6,0.0
+Matt James,0,0,0,0,1,30,0.0
+Maurice Greene,0,2,0,2,2,7,0.0
+Melissa Gilbert,0,0,0,0,3,14,0.0
+Michael Irvin,0,0,0,0,4,9,0.0
+Mischa Barton,0,1,0,1,1,22,0.0
+Nancy Grace,0,0,0,0,2,13,0.0
+NeNe Leakes,0,0,0,0,1,18,0.0
+Nelly,0,0,0,0,3,29,0.0
+Nick Lachey,0,2,0,2,2,25,0.0
+Nick Viall,0,0,0,0,1,24,0.0
+Niecy Nash,0,1,0,1,2,10,0.0
+Noah Galloway,0,0,0,0,2,20,0.0
+Patti LaBelle,0,1,0,1,1,20,0.0
+Reginald VelJohnson,0,1,0,1,2,33,0.0
+Robert Herjavec,0,3,1,2,3,20,0.0
+Sara Evans,0,1,0,1,2,3,0.0
+Shandi Finnessey,0,1,1,0,1,4,0.0
+Skai Jackson,0,1,1,0,3,29,0.0
+Steve Guttenberg,0,0,0,0,1,6,0.0
+Steve-O,0,1,0,1,4,8,0.0
+Sugar Ray Leonard,0,0,0,0,1,12,0.0
+Terra Jole,0,1,1,0,1,23,0.0
+Terrell Owens,0,1,0,1,2,25,0.0
+The Situation,0,0,0,0,1,11,0.0
+Vanilla Ice,0,1,0,1,1,23,0.0
+Victor Ortiz,0,1,0,1,1,16,0.0
+Victoria Arlen,0,1,0,1,1,25,0.0
+Wanya Morris,0,1,0,1,1,22,0.0
+Warren Sapp,0,0,0,0,1,7,0.0
+Wayne Newton,0,1,0,1,1,5,0.0

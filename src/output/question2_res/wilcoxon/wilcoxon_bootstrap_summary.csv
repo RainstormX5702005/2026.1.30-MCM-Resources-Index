@@ -1,0 +1,14 @@
+metric,value
+successful_iterations,1000.0
+p_value_mean,0.004367452768521745
+p_value_median,0.00024119378282491698
+p_value_std,0.019272332699344034
+significant_rate,98.5
+method1_better,0.0
+method2_better,1000.0
+no_difference,0.0
+method1_event_mean_avg,0.2549814814814815
+method2_event_mean_avg,0.1067175925925926
+diff_mean,0.14826388888888892
+diff_median,0.14814814814814814
+method1_worse_rate,100.0
