@@ -110,9 +110,9 @@ def calculate_accuracy_metrics(df):
     return metrics
 
 
-def plot_p_value_analysis(df, prediction_type, output_dir, threshold=0.5):
+def plot_p_value_analysis_full(df, prediction_type, output_dir, threshold=0.5):
     """
-    绘制p值分析图
+    绘制p值分析图（完整版 - 显示所有点）
 
     参数：
     - df: 数据框
@@ -135,7 +135,6 @@ def plot_p_value_analysis(df, prediction_type, output_dir, threshold=0.5):
     actual_not_elim = df_sorted[df_sorted["Actual_Eliminated"] == False]
 
     # 预测错误的点
-    errors = df_sorted[df_sorted["Prediction_Result"].isin(["FP", "FN"])]
     fp_errors = df_sorted[df_sorted["Prediction_Result"] == "FP"]  # 高p但未淘汰
     fn_errors = df_sorted[df_sorted["Prediction_Result"] == "FN"]  # 低p但淘汰
 
@@ -209,13 +208,19 @@ def plot_p_value_analysis(df, prediction_type, output_dir, threshold=0.5):
         else "Rank-based (Other Seasons)"
     )
     ax.set_title(
-        f"Elimination Probability (p-value) Analysis - {method_name}\n"
-        + f'Accuracy: {metrics["Accuracy"]:.3f} | Precision: {metrics["Precision"]:.3f} | '
-        + f'Recall: {metrics["Recall"]:.3f} | F1: {metrics["F1"]:.3f}\n'
-        + f'Total: {metrics["Total"]} | Errors: {metrics["FP"] + metrics["FN"]} '
-        + f'(FP: {metrics["FP"]}, FN: {metrics["FN"]})',
+        f"Elimination Probability Analysis By {method_name}",
         fontsize=14,
         pad=20,
+    )
+
+    # 输出指标到终端
+    print(f"\n[FULL Version] {method_name}")
+    print(f"  Accuracy: {metrics['Accuracy']:.4f}")
+    print(f"  Precision: {metrics['Precision']:.4f}")
+    print(f"  Recall: {metrics['Recall']:.4f}")
+    print(f"  F1: {metrics['F1']:.4f}")
+    print(
+        f"  Total: {metrics['Total']} | Errors: {metrics['FP'] + metrics['FN']} (FP: {metrics['FP']}, FN: {metrics['FN']})"
     )
 
     ax.set_xlabel(
@@ -227,22 +232,171 @@ def plot_p_value_analysis(df, prediction_type, output_dir, threshold=0.5):
     ax.grid(True, alpha=0.3)
     ax.legend(loc="upper right", fontsize=10)
 
-    # 添加说明文本
-    info_text = (
-        f"High p-value → High elimination probability\n"
-        f"Expected: Red points (actually eliminated) have HIGH p-values\n"
-        f"Expected: Blue points (not eliminated) have LOW p-values\n"
-        f"X marks indicate prediction errors"
+    plt.tight_layout()
+
+    # 保存图像
+    filename = f"accuracy_check_{prediction_type}_full.png"
+    plt.savefig(output_dir / filename, dpi=300, bbox_inches="tight")
+    print(f"Saved: {filename}")
+
+    plt.close()
+
+    return metrics
+
+
+def plot_p_value_analysis(df, prediction_type, output_dir, threshold=0.5):
+    """
+    绘制p值分析图（优化版 - 采样显示）
+
+    参数：
+    - df: 数据框
+    - prediction_type: 'pct' 或 'rank'
+    - output_dir: 输出目录
+    - threshold: 淘汰概率阈值
+    """
+    # 按预测概率排序，方便可视化
+    df_sorted = df.sort_values(
+        "Predicted_Elim_Probability", ascending=False
+    ).reset_index(drop=True)
+
+    # 去掉长拖尾部分：保留概率 > 0.05 的数据，或者包含错误的数据
+    min_prob_threshold = 0.05
+    df_filtered = df_sorted[
+        (df_sorted["Predicted_Elim_Probability"] >= min_prob_threshold)
+        | (df_sorted["Prediction_Result"].isin(["FP", "FN"]))
+    ].reset_index(drop=True)
+
+    df_filtered["Index"] = range(len(df_filtered))
+
+    # 创建图形
+    fig, ax = plt.subplots(figsize=(16, 8))
+
+    # 分类数据
+    # 预测错误的点（必须全部保留）
+    fp_errors = df_filtered[df_filtered["Prediction_Result"] == "FP"]  # 高p但未淘汰
+    fn_errors = df_filtered[df_filtered["Prediction_Result"] == "FN"]  # 低p但淘汰
+
+    # 预测正确的点（需要采样）
+    tp_correct = df_filtered[
+        df_filtered["Prediction_Result"] == "TP"
+    ]  # 预测淘汰且实际淘汰
+    tn_correct = df_filtered[
+        df_filtered["Prediction_Result"] == "TN"
+    ]  # 预测未淘汰且实际未淘汰
+
+    # 采样策略：错误点的2-3倍数量
+    n_errors = len(fp_errors) + len(fn_errors)
+    sample_ratio = max(2.5, min(4.0, 1000 / max(len(tp_correct) + len(tn_correct), 1)))
+    n_sample_correct = int(n_errors * sample_ratio)
+
+    # 对正确的点进行分层采样
+    n_tp_sample = int(n_sample_correct * 0.4)  # 40% 是 TP
+    n_tn_sample = n_sample_correct - n_tp_sample  # 60% 是 TN
+
+    # 确保采样数不超过实际数量
+    n_tp_sample = min(n_tp_sample, len(tp_correct))
+    n_tn_sample = min(n_tn_sample, len(tn_correct))
+
+    # 进行随机采样
+    np.random.seed(42)  # 固定随机种子保证可重复性
+    tp_sampled = tp_correct.sample(n=n_tp_sample) if n_tp_sample > 0 else pd.DataFrame()
+    tn_sampled = tn_correct.sample(n=n_tn_sample) if n_tn_sample > 0 else pd.DataFrame()
+
+    # 绘制采样后的正确预测点
+    # 实际被淘汰且预测正确的点（红色圆点）
+    if len(tp_sampled) > 0:
+        ax.scatter(
+            tp_sampled["Index"],
+            tp_sampled["Predicted_Elim_Probability"],
+            c="red",
+            alpha=0.4,
+            s=25,
+            label=f"Actually Eliminated (sampled {len(tp_sampled)}/{len(tp_correct)})",
+            marker="o",
+        )
+
+    # 实际未被淘汰且预测正确的点（蓝色圆点）
+    if len(tn_sampled) > 0:
+        ax.scatter(
+            tn_sampled["Index"],
+            tn_sampled["Predicted_Elim_Probability"],
+            c="blue",
+            alpha=0.4,
+            s=25,
+            label=f"Not Eliminated (sampled {len(tn_sampled)}/{len(tn_correct)})",
+            marker="o",
+        )
+
+    # 特别标注预测错误的点（全部显示）
+    # False Positive: 预测淘汰但实际未淘汰（蓝色叉）
+    if len(fp_errors) > 0:
+        ax.scatter(
+            fp_errors["Index"],
+            fp_errors["Predicted_Elim_Probability"],
+            c="blue",
+            marker="x",
+            s=120,
+            linewidths=2.5,
+            label=f"FP: Pred Elim but Not (n={len(fp_errors)})",
+            zorder=5,
+        )
+
+    # False Negative: 预测未淘汰但实际淘汰（红色叉）
+    if len(fn_errors) > 0:
+        ax.scatter(
+            fn_errors["Index"],
+            fn_errors["Predicted_Elim_Probability"],
+            c="red",
+            marker="x",
+            s=120,
+            linewidths=2.5,
+            label=f"FN: Pred Not Elim but Was (n={len(fn_errors)})",
+            zorder=5,
+        )
+
+    # 添加阈值线
+    ax.axhline(
+        y=threshold,
+        color="green",
+        linestyle="--",
+        linewidth=2,
+        label=f"Threshold = {threshold}",
+        alpha=0.7,
     )
-    ax.text(
-        0.02,
-        0.02,
-        info_text,
-        transform=ax.transAxes,
-        fontsize=9,
-        verticalalignment="bottom",
-        bbox=dict(boxstyle="round", facecolor="wheat", alpha=0.3),
+
+    # 计算并显示准确率指标
+    metrics = calculate_accuracy_metrics(df)
+
+    # 设置标题和标签
+    method_name = (
+        "Percentage-based (Season 3-27)"
+        if prediction_type == "pct"
+        else "Rank-based (Other Seasons)"
     )
+    ax.set_title(
+        f"Elimination Probability Analysis By {method_name}",
+        fontsize=14,
+        pad=20,
+    )
+
+    # 输出指标到终端
+    print(f"\n[Sampled Version] {method_name}")
+    print(f"  Accuracy: {metrics['Accuracy']:.4f}")
+    print(f"  Precision: {metrics['Precision']:.4f}")
+    print(f"  Recall: {metrics['Recall']:.4f}")
+    print(f"  F1: {metrics['F1']:.4f}")
+    print(
+        f"  Total: {metrics['Total']} | Errors: {metrics['FP'] + metrics['FN']} (FP: {metrics['FP']}, FN: {metrics['FN']})"
+    )
+
+    ax.set_xlabel(
+        "Contestant Index (Sorted by Predicted Elimination Probability)", fontsize=12
+    )
+    ax.set_ylabel("Predicted Elimination Probability (p-value)", fontsize=12)
+
+    ax.set_ylim(-0.05, 1.05)
+    ax.grid(True, alpha=0.3)
+    ax.legend(loc="upper right", fontsize=10)
 
     plt.tight_layout()
 
@@ -275,33 +429,49 @@ def plot_high_probability_focus(df, prediction_type, output_dir, high_p_threshol
 
     fig, ax = plt.subplots(figsize=(14, 7))
 
-    # 实际被淘汰的高概率点
-    actual_elim = high_p_df[high_p_df["Actual_Eliminated"] == True]
-    actual_not_elim = high_p_df[high_p_df["Actual_Eliminated"] == False]
-
-    # 错误的点
+    # 分类数据
+    # 预测错误的点（必须全部保留）
     fp_errors = high_p_df[high_p_df["Prediction_Result"] == "FP"]
 
-    # 绘制点
-    ax.scatter(
-        actual_elim["Index"],
-        actual_elim["Predicted_Elim_Probability"],
-        c="red",
-        alpha=0.6,
-        s=50,
-        label="Actually Eliminated",
-        marker="o",
-    )
+    # 预测正确的点（采样）
+    tp_correct = high_p_df[high_p_df["Prediction_Result"] == "TP"]
+    tn_correct = high_p_df[high_p_df["Prediction_Result"] == "TN"]  # 高概率下应该很少
 
-    ax.scatter(
-        actual_not_elim["Index"],
-        actual_not_elim["Predicted_Elim_Probability"],
-        c="blue",
-        alpha=0.6,
-        s=50,
-        label="Not Eliminated (Error)",
-        marker="o",
-    )
+    # 采样：错误点的3倍左右
+    n_errors = len(fp_errors)
+    n_sample = int(n_errors * 3)
+    n_sample = min(n_sample, len(tp_correct) + len(tn_correct))
+
+    # 优先保证 TP 采样
+    n_tp_sample = min(int(n_sample * 0.9), len(tp_correct))
+    n_tn_sample = min(n_sample - n_tp_sample, len(tn_correct))
+
+    np.random.seed(42)
+    tp_sampled = tp_correct.sample(n=n_tp_sample) if n_tp_sample > 0 else pd.DataFrame()
+    tn_sampled = tn_correct.sample(n=n_tn_sample) if n_tn_sample > 0 else pd.DataFrame()
+
+    # 绘制点
+    if len(tp_sampled) > 0:
+        ax.scatter(
+            tp_sampled["Index"],
+            tp_sampled["Predicted_Elim_Probability"],
+            c="red",
+            alpha=0.5,
+            s=40,
+            label=f"Actually Eliminated (sampled {len(tp_sampled)}/{len(tp_correct)})",
+            marker="o",
+        )
+
+    if len(tn_sampled) > 0:
+        ax.scatter(
+            tn_sampled["Index"],
+            tn_sampled["Predicted_Elim_Probability"],
+            c="blue",
+            alpha=0.5,
+            s=40,
+            label=f"Not Eliminated (sampled {len(tn_sampled)}/{len(tn_correct)})",
+            marker="o",
+        )
 
     # 标注错误点
     if len(fp_errors) > 0:
@@ -317,7 +487,7 @@ def plot_high_probability_focus(df, prediction_type, output_dir, high_p_threshol
         )
 
     # 计算高概率区域的准确率
-    high_p_correct = len(actual_elim)
+    high_p_correct = len(tp_correct)  # 实际被淘汰且预测正确的数量
     high_p_total = len(high_p_df)
     high_p_accuracy = high_p_correct / high_p_total if high_p_total > 0 else 0
 
@@ -327,9 +497,7 @@ def plot_high_probability_focus(df, prediction_type, output_dir, high_p_threshol
         else "Rank-based (Other Seasons)"
     )
     ax.set_title(
-        f"High Elimination Probability Analysis (p ≥ {high_p_threshold}) - {method_name}\n"
-        + f"High-p Accuracy: {high_p_accuracy:.3f} ({high_p_correct}/{high_p_total})\n"
-        + f"These are contestants predicted to be eliminated with high confidence",
+        f"High Elimination Probability Analysis",
         fontsize=13,
         pad=15,
     )
@@ -435,6 +603,9 @@ def main():
 
     # 绘制图像
     print("\n绘制图像...")
+    print("  - 生成完整版本（所有点）...")
+    plot_p_value_analysis_full(pct_df, "pct", output_dir, threshold=threshold)
+    print("  - 生成优化版本（采样）...")
     plot_p_value_analysis(pct_df, "pct", output_dir, threshold=threshold)
     plot_high_probability_focus(
         pct_df, "pct", output_dir, high_p_threshold=high_p_threshold
@@ -472,6 +643,9 @@ def main():
 
     # 绘制图像
     print("\n绘制图像...")
+    print("  - 生成完整版本（所有点）...")
+    plot_p_value_analysis_full(rank_df, "rank", output_dir, threshold=threshold)
+    print("  - 生成优化版本（采样）...")
     plot_p_value_analysis(rank_df, "rank", output_dir, threshold=threshold)
     plot_high_probability_focus(
         rank_df, "rank", output_dir, high_p_threshold=high_p_threshold
