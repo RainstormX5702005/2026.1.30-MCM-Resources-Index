@@ -76,9 +76,9 @@ def handle_data(file_name: str) -> pd.DataFrame:
         return pd.DataFrame()
 
 
-def add_prediction(df: pd.DataFrame) -> pd.DataFrame:
-    """添加预测值特征"""
+def set_features(df: pd.DataFrame) -> pd.DataFrame:
     t = float(0.8)
+
     start_date = pd.Timestamp("2016-09-20")
     end_date = pd.Timestamp("2021-09-10")
 
@@ -87,35 +87,20 @@ def add_prediction(df: pd.DataFrame) -> pd.DataFrame:
     for i in range(len(df)):
         current_date = df.loc[i, "Date"]
         if current_date >= start_date and current_date <= end_date:
+            # 获取前面10天的索引
             start_idx = max(0, i - 10)
             window = df.loc[start_idx : i - 1]
             if len(window) >= 10:
+                # 计算权重：越近的权重越大
                 weights = np.array([t**j for j in range(1, 11)])
-                weights = weights / weights.sum()
-                value_col = "USD (PM)" if "USD (PM)" in df.columns else "Value"
-                values = window.iloc[-10:][value_col].values
+                weights = weights / weights.sum()  # 归一化权重和为1
+                values = (
+                    window.iloc[-10:]["USD (PM)"].values
+                    if "USD (PM)" in df.columns
+                    else window.iloc[-10:]["Value"].values
+                )
                 predicted = np.dot(values, weights)
                 df.loc[i, "PredictVal"] = float(predicted)
-    return df
-
-
-def add_sharpe(df: pd.DataFrame) -> pd.DataFrame:
-    """添加夏普比率特征"""
-    value_col = "USD (PM)" if "USD (PM)" in df.columns else "Value"
-    df["returns"] = df[value_col].pct_change()
-    rf = 0
-    mean_return = df["returns"].mean()
-    std_return = df["returns"].std()
-    sharpe_ratio = (mean_return - rf) / std_return if std_return > 0 else 0
-    df["Sharpe"] = sharpe_ratio
-    return df
-
-
-def set_features(df: pd.DataFrame, features: list) -> pd.DataFrame:
-    """特征工程工厂：按顺序应用特征函数"""
-
-    for func in features:
-        df = func(df)
 
     return df
 
@@ -125,11 +110,11 @@ def main():
     mkpru_path = OUTPUT_DIR / "PROCESSED_MKPRU.csv"
 
     gold_df = handle_data("LBMA-GOLD.csv")
-    gold_df = set_features(gold_df, [add_prediction])
+    gold_df = set_features(gold_df)
     gold_df.to_csv(gold_path, index=False)
 
     mkpru_df = handle_data("BCHAIN-MKPRU.csv")
-    mkpru_df = set_features(mkpru_df, [add_prediction])
+    mkpru_df = set_features(mkpru_df)
     mkpru_df.to_csv(mkpru_path, index=False)
 
 

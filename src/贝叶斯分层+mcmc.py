@@ -73,6 +73,7 @@ def load_and_structure_data(file_path):
     # 按赛季和周分组
     groups = long_df.groupby(['season_idx', 'week_idx'])
 
+<<<<<<< HEAD
     # 预先构建存在查找表 (s, w, c_id)
     existence_set = set(zip(long_df['season_idx'], long_df['week_idx'], long_df['contestant_id']))
 
@@ -106,6 +107,23 @@ def load_and_structure_data(file_path):
 
         survived_indices = np.array(survived_indices)
         eliminated_indices = np.array(eliminated_indices)
+=======
+    for (s, w), group in groups:
+        week_num = w + 1
+
+        # 找出本周被淘汰的人 (weeks_participated == current_week 且 placement > 3)
+        # 注意：这里假设 placement > 3 才是常规淘汰，决赛周(前3)不计入“失败”
+        # 严格来说，如果 weeks_participated == week_num，这就是该选手的最后一周
+
+        # 判定状态
+        is_eliminated = (group['weeks_participated'] == week_num) & (group['placement'] > 3)
+
+        eliminated_indices = group.loc[is_eliminated, 'obs_id'].values
+
+        # 判定存活 (不是最后一周，或者虽是最后一周但进了前3)
+        # 简单判定：只要没被标记为淘汰，就是胜者
+        survived_indices = group.loc[~is_eliminated, 'obs_id'].values
+>>>>>>> c5374b3a02f9ef1e814ca7d6a270d3252d0eccb7
 
         if len(eliminated_indices) > 0 and len(survived_indices) > 0:
             # 生成笛卡尔积：所有幸存者 vs 所有淘汰者
@@ -137,7 +155,11 @@ def load_and_structure_data(file_path):
 # ==========================================
 # 2. 模型构建与推断
 # ==========================================
+<<<<<<< HEAD
 def build_and_run_model(data, draws=2000, tune=1000):
+=======
+def build_and_run_model(data, draws=1000, tune=1000):
+>>>>>>> c5374b3a02f9ef1e814ca7d6a270d3252d0eccb7
     long_df = data['long_df']
     obs_c = long_df['contestant_id'].values
     obs_s = long_df['season_idx'].values
@@ -231,7 +253,11 @@ def build_and_run_model(data, draws=2000, tune=1000):
         # --- Sampling ---
         print(f"Starting sampling ({draws} draws, {tune} tune)...")
         # 如果有 colab GPU 或 Linux，这里会自动加速。Windows 下使用多核 CPU。
+<<<<<<< HEAD
         trace = pm.sample(draws=draws, tune=tune, chains=4, cores=4, target_accept=0.95, return_inferencedata=True)
+=======
+        trace = pm.sample(draws=draws, tune=tune, chains=2, target_accept=0.9, return_inferencedata=True)
+>>>>>>> c5374b3a02f9ef1e814ca7d6a270d3252d0eccb7
 
     return model, trace
 

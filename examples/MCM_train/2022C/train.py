@@ -41,6 +41,23 @@ def main():
 
     ts = df["USD (PM)"]
 
+    # 建立循环：从2016-09-20到2021-09-10，使用前面10天计算预测值
+    start_date = pd.Timestamp('2016-09-20')
+    end_date = pd.Timestamp('2021-09-10')
+    predictions = []
+
+    for current_date in pd.date_range(start=start_date, end=end_date, freq='D'):
+        # 获取前面10天的窗口
+        window = df.loc[df.index < current_date].tail(10)
+        if len(window) == 10:
+            # 用户在这里添加加权计算逻辑
+            # 例如：predicted_value = window['USD (PM)'].mean()  # 示例
+            predicted_value = None  # 替换为你的计算
+            predictions.append((current_date, predicted_value))
+        else:
+            # 不足10天，跳过或处理
+            pass
+
     # 检查平稳性
     result = adfuller(ts)
     print(f"ADF Statistic: {result[0]}")
